@@ -1,0 +1,33 @@
+escalerizar:
+
+int prevStepHeight = 0;
+int pivotRow;
+float pivotVal;
+
+for col in matrix:
+	for row in matrix:
+	
+		// choose pivot row
+		
+		if(matrix[row][col] == 0 || row <= prevStepHeight) continue
+		
+		if(row > prevStepHeight + 1):
+			switchRows(matrix, row, prevStepHeight)	// switch row to matrix[prevStepHeight + 1]
+			row = prevStepHeight + 1 
+			
+	
+		pivotVal = matrix[row][col]
+		pivotRow = row
+		
+		// clear column
+		
+		for targetRow in matrix:
+			if(targetRow == pivotRow) continue
+			float factor = -matrix[targetRow][col] / pivotVal
+			addRows(matrix, row, targetRow, factor) // add row to target row, scaled by factor
+		
+		multiplyRow(matrix, row, 1/pivotVal) // multiply the row to make pivotVal = 1
+		prevStepHeight++
+		break // break out of the row loop, since we have already cleared all rows in this column
+			
+				
